@@ -13,9 +13,9 @@ const syncAndSeed = () => {
     let macBookAir, iPhone8, hershelBackpack, cart, order, lineItem1, lineItem2, lineItem3;
     conn.sync({ force: true })
         .then(() => Promise.all([
-            Product.create({ name: 'MacBook Air' }),
-            Product.create({ name: 'iPhone 8' }),
-            Product.create({ name: 'Hershel Backpack' })
+            Product.create({ name: 'macBookAir' }),
+            Product.create({ name: 'iPhone8' }),
+            Product.create({ name: 'hershelBackpack' })
         ]))
         .then(products => {
             [macBookAir, iPhone8, hershelBackpack] = products;
@@ -37,9 +37,9 @@ const syncAndSeed = () => {
             lineItem1.setProduct(macBookAir);
             lineItem2.setProduct(iPhone8);
             lineItem3.setProduct(hershelBackpack);
-            lineItem1.setOrder(cart);
-            lineItem2.setOrder(order);
-            lineItem3.setOrder(order);
+            lineItem1.setOrder(order);
+            lineItem2.setOrder(cart);
+            lineItem3.setOrder(cart);
         })
 }
 

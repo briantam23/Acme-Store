@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { loadInitialOrders, loadInitialProducts } from '../store/actions/products';
+import { loadInitialOrders } from '../store/actions/orders';
+import { loadInitialProducts } from '../store/actions/products';
 import ReactLoading from 'react-loading';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import NavBar from './NavBar';
@@ -38,10 +39,7 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = ({ orders, products }) => ({
-    orders, products
-})
 const mapDispatchToProps = { loadInitialOrders, loadInitialProducts };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
