@@ -2,6 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { loadInitialOrders, loadInitialProducts } from '../store/actions/products';
 import ReactLoading from 'react-loading';
+import { HashRouter as Router, Route } from 'react-router-dom';
+import NavBar from './NavBar';
+import Home from './Home';
+import Cart from './Cart';
+import Orders from './Orders';
+
 
 class App extends Component {
     constructor() {
@@ -18,8 +24,15 @@ class App extends Component {
         if(this.state.loading) return <ReactLoading type='spokes' color='black'/>
         return(
             <Fragment>
-                <hr/>
-                <h1>{ this.props.products.length }</h1>
+                <h1>Acme Store</h1>
+                <Router>
+                    <Fragment>
+                        <Route render={ ({ location }) => <NavBar pathname={ location.pathname }/> }/>
+                        <Route exact path='/' render={ () => <Home/> }/>
+                        <Route path='/cart' render={ () => <Cart/> }/>
+                        <Route path='/orders' render={ () => <Orders/> }/>
+                    </Fragment>
+                </Router>
             </Fragment>
         )
     }
