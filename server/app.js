@@ -9,7 +9,7 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../public/index.ht
 
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/products', require('./routes/products'));
-app.use('/api/lineItems', require('./routes/lineItems'));
+
 
 app.use((err, req, res, next) => {
     console.log(err);
