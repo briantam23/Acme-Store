@@ -1,4 +1,4 @@
-import { LOAD_INITIAL_ORDERS, CREATE_LINE_ITEM, UPDATE_ORDER, RESET_ORDERS } from '../constants';
+import { LOAD_INITIAL_ORDERS, CREATE_LINE_ITEM, UPDATE_LINE_ITEM, UPDATE_ORDER, RESET_ORDERS } from '../constants';
 import axios from 'axios';
 
 
@@ -28,21 +28,31 @@ export const createLineItem = (product, orderId) => {
     )
 )}
 
-const _updateOrder = lineItem => ({
-    type: UPDATE_ORDER,
+const _updateLineItem = lineItem => ({
+    type: UPDATE_LINE_ITEM,
     lineItem
 })
-export const updateOrder = (lineItem, orderId, _quantity) => {
+export const updateLineItem = (lineItem, orderId, _quantity) => {
     lineItem = { ...lineItem, quantity: _quantity + 1 };
     console.log(lineItem)
     return(
         dispatch => (
             axios.put(`/api/orders/${orderId}/lineItems/${lineItem.productId}`, lineItem)
                 .then(res => res.data)
-                .then(lineItem => dispatch(_updateOrder(lineItem)))
+                .then(lineItem => dispatch(_updateLineItem(lineItem)))
         )
     )
 }
+
+/* const _updateOrder = order => ({
+    type: CREATE_ORDER,
+    orders: order
+})
+export const createOrder = order => (
+    dispatch => (
+        axios.create()
+    )
+) */
 
 const _resetOrders = orders => ({
     type: RESET_ORDERS,

@@ -12,7 +12,7 @@ class Orders extends Component {
             <Fragment>
                 <br/>
                 <Alert color='success'>(Number) Items Sold!!</Alert>
-                <h1>Orders</h1>
+                <h2>Orders</h2>
                 <hr/>
                 <h3>Orders</h3>
                 <Table dark striped>

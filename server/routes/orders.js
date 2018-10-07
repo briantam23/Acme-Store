@@ -38,12 +38,13 @@ router.post('/:orderId/lineItems', (req, res, next) => {
     console.log(syncAndSeed)
     const syncAndSeedPromise = () => (
         new Promise((resolve, reject) => {
-            syncAndSeed = resolve;
+            resolve(syncAndSeed());
         })
     )
     syncAndSeedPromise()
         .then(() => Order.findAll())
         .then(orders => res.send(orders))
+        .catch(next)
 }) */
 
 //update order

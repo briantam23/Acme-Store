@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Alert } from 'reactstrap';
-import { createLineItem, updateOrder, resetOrders } from '../store/actions/orders';
+import { createLineItem, updateLineItem, resetOrders } from '../store/actions/orders';
 
 
 class Cart extends Component {
@@ -9,12 +9,12 @@ class Cart extends Component {
         super();
     }
     render() {
-        const { cart, products, createLineItem, updateOrder, resetOrders } = this.props;
+        const { cart, products, createLineItem, updateLineItem, resetOrders } = this.props;
         return(
             <Fragment>
                 <br/>
                 <Alert color='success'>(Number) Items Sold!!</Alert>
-                <h1>Cart</h1>
+                <h2>Cart</h2>
                 <hr/>
                 <h3>Products</h3>
                 <Table dark striped>
@@ -42,7 +42,7 @@ class Cart extends Component {
                             <tr key={ product.id }>
                                 <td>{ product.name }</td>
                                 <td>{ quantity }</td>
-                                <td onClick={ () => inCart ? updateOrder(lineItem, orderId, quantity) : createLineItem(product, orderId) }><Button>+</Button></td>
+                                <td onClick={ () => inCart ? updateLineItem(lineItem, orderId, quantity) : createLineItem(product, orderId) }><Button>+</Button></td>
                                 <td onClick={ () => handleChange(product, orderId, 'decrease') }><Button>-</Button></td>
                             </tr>
                     )})
@@ -50,7 +50,7 @@ class Cart extends Component {
                 </tbody>
                 </Table>
                 <Button color='primary' block>Create Order</Button>
-                <Button color='warning' block disabled>Reset</Button>
+                <Button /* onClick={ () => resetOrders() }  */ color='warning' block disabled>Reset</Button>
             </Fragment>
         )
     }
@@ -60,6 +60,6 @@ const mapStateToProps = ({ orders, products }) => {
     let cart = orders.find(order => order.status === 'CART');
     return { cart, products };
 }
-const mapDispatchToProps = ({ createLineItem, updateOrder, resetOrders });
+const mapDispatchToProps = ({ createLineItem, updateLineItem, resetOrders });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
