@@ -1,28 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Alert } from 'reactstrap';
+import { createLineItem, updateOrder, resetOrders } from '../store/actions/orders';
 
 
 class Cart extends Component {
     constructor() {
         super();
-        this.state = {
-            macBookAir: 0,
-            iPhone8: 0,
-            hershelBackpack: 0
-        }
-        this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange(product, change) {
-        if(change === 'increase') this.setState({ [product.name]: this.state[product.name] + 1 });
-        else {
-            if(this.state[product.name] > 0) this.setState({ [product.name]: this.state[product.name] - 1 });
-        }
     }
     render() {
-        const { macBookAir, iPhone8, hershelBackpack } = this.state;
-        const { cart, products } = this.props;
-        const { handleChange } = this;
+        const { cart, products, createLineItem, updateOrder, resetOrders } = this.props;
         return(
             <Fragment>
                 <br/>
@@ -39,19 +26,31 @@ class Cart extends Component {
                 </thead>
                 <tbody>
                 {
-                    cart.lineItems.map(lineItem => ( 
-                        <tr key={ lineItem.productId }>
-                            <td>{ lineItem.productId }</td>
-                            <td>{ lineItem.quantity }</td>
-                            <td onClick={ () => handleChange(product, 'increase') }><Button>+</Button></td>
-                            <td onClick={ () => handleChange(product, 'decrease') }><Button>-</Button></td>
-                        </tr>
-                    ))
+                    products.map(product => {
+                        let quantity = 0;
+                        let inCart = false;
+                        let lineItem = null;
+                        if(cart.lineItems.find(lineItem => lineItem.productId === product.id)) {
+                            lineItem = cart.lineItems.find(lineItem => lineItem.productId === product.id);
+                            quantity = lineItem.quantity;
+                            inCart = true;
+                            console.log(quantity)
+                        }
+                        console.log(quantity)
+                        const orderId = cart.id;
+                        return( 
+                            <tr key={ product.id }>
+                                <td>{ product.name }</td>
+                                <td>{ quantity }</td>
+                                <td onClick={ () => inCart ? updateOrder(lineItem, orderId, quantity) : createLineItem(product, orderId) }><Button>+</Button></td>
+                                <td onClick={ () => handleChange(product, orderId, 'decrease') }><Button>-</Button></td>
+                            </tr>
+                    )})
                 }
                 </tbody>
                 </Table>
                 <Button color='primary' block>Create Order</Button>
-                <Button color='warning' block>Reset</Button>
+                <Button color='warning' block disabled>Reset</Button>
             </Fragment>
         )
     }
@@ -61,6 +60,6 @@ const mapStateToProps = ({ orders, products }) => {
     let cart = orders.find(order => order.status === 'CART');
     return { cart, products };
 }
-const mapDispatchToProps = {}
+const mapDispatchToProps = ({ createLineItem, updateOrder, resetOrders });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

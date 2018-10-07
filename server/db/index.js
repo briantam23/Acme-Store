@@ -7,7 +7,7 @@ const LineItem = require('./models/LineItem');
 LineItem.belongsTo(Product);
 LineItem.belongsTo(Order);
 Order.hasMany(LineItem);
-//Product.hasMany(LineItem);
+
 
 const syncAndSeed = () => {
     let macBookAir, iPhone8, hershelBackpack, cart, order, lineItem1, lineItem2, lineItem3;
@@ -38,7 +38,7 @@ const syncAndSeed = () => {
             lineItem2.setProduct(iPhone8);
             lineItem3.setProduct(hershelBackpack);
             lineItem1.setOrder(order);
-            lineItem2.setOrder(cart);
+            lineItem2.setOrder(order);
             lineItem3.setOrder(cart);
         })
 }

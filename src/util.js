@@ -4,3 +4,7 @@ export const selected = (_pathname, pathname, startsWith = false) => {
     }
     return false;
 }
+
+export const findProductNameById = (products, id) => (
+    products.find(product => product.id === id).name
+)
