@@ -28,11 +28,13 @@ const NavBar = ({ orderCount, cartCount, pathname }) => (
     </Fragment>
 )
 
+
 const mapStateToProps = ({ orders }, { pathname }) => {
     const orderCount = findFinishedOrders(orders).length;
     const cartOrder = findPendingOrder(orders);
     const cartCount = findCartCount(cartOrder);
     return { orderCount, cartCount, pathname };
 }
+
 
 export default connect(mapStateToProps)(NavBar);

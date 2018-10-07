@@ -41,6 +41,7 @@ class App extends Component {
     }
 }
 
+
 const mapDispatchToProps = { loadInitialOrders, loadInitialProducts };
 
 

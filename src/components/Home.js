@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 
 const Home = () => (
-    <h1>Home</h1>
+    <Fragment>
+        <h1>Home</h1>
+        <hr/><br/>
+        <img src='../../public/store.jpg' alt='Store Picture'/>
+    </Fragment>
 )
 
 
