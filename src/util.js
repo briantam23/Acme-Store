@@ -8,3 +8,25 @@ export const selected = (_pathname, pathname, startsWith = false) => {
 export const findProductNameById = (products, id) => (
     products.find(product => product.id === id).name
 )
+
+export const findFinishedOrders = orders => (
+    orders.filter(order => order.status === 'ORDER')
+)
+
+export const findPendingOrder = orders => (
+    orders.find(order => order.status === 'CART')
+)
+
+export const findOrderedCount = finishedOrders => {
+    let orderedCount = 0;
+    for(let i = 0; i < finishedOrders.length; i++) {
+        for(let j = 0; j < finishedOrders[i].lineItems.length; j++) {
+            orderedCount += finishedOrders[i].lineItems[j].quantity;
+        }
+    }
+    return orderedCount;
+}
+
+export const findCartCount = cartOrder => (
+    cartOrder.lineItems.reduce((acc, cur) => acc += cur.quantity, 0)
+)

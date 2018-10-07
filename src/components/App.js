@@ -8,6 +8,7 @@ import NavBar from './NavBar';
 import Home from './Home';
 import Cart from './Cart';
 import Orders from './Orders';
+import AlertBanner from './AlertBanner';
 
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
                 <Router>
                     <Fragment>
                         <Route render={ ({ location }) => <NavBar pathname={ location.pathname }/> }/>
+                        <Route render={ () => <AlertBanner/> }/>
                         <Route exact path='/' render={ () => <Home/> }/>
                         <Route path='/cart' render={ () => <Cart/> }/>
                         <Route path='/orders' render={ () => <Orders/> }/>

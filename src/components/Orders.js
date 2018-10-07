@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Alert } from 'reactstrap';
-import { findProductNameById } from '../util';
+import { findProductNameById, findFinishedOrders } from '../util';
 import { resetOrders } from '../store/actions/orders';
 
 
@@ -10,8 +10,6 @@ class Orders extends Component {
         const { orders, products, resetOrders } = this.props;
         return(
             <Fragment>
-                <br/>
-                <Alert color='success'>(Number) Items Sold!!</Alert>
                 <h2>Orders</h2>
                 <hr/>
                 <h3>Orders</h3>
@@ -46,7 +44,7 @@ class Orders extends Component {
 }
 
 const mapStateToProps = ({ orders, products }) => {
-    orders = orders.filter(order => order.status === 'ORDER');
+    orders = findFinishedOrders(orders);
     return { orders, products }
 }
 const mapDispatchToProps = ({ resetOrders })

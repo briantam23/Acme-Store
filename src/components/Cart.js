@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Alert } from 'reactstrap';
 import { createLineItem, updateLineItem, resetOrders } from '../store/actions/orders';
+import { findPendingOrder } from '../util';
 
 
 class Cart extends Component {
@@ -12,8 +13,6 @@ class Cart extends Component {
         const { cart, products, createLineItem, updateLineItem, resetOrders } = this.props;
         return(
             <Fragment>
-                <br/>
-                <Alert color='success'>(Number) Items Sold!!</Alert>
                 <h2>Cart</h2>
                 <hr/>
                 <h3>Products</h3>
@@ -21,7 +20,7 @@ class Cart extends Component {
                 <thead>
                     <tr>
                         <th>Product Name</th>
-                        <th>Quantity Ordered</th>
+                        <th>Quantity</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +42,7 @@ class Cart extends Component {
                                 <td>{ product.name }</td>
                                 <td>{ quantity }</td>
                                 <td onClick={ () => inCart ? updateLineItem(lineItem, orderId, quantity) : createLineItem(product, orderId) }><Button>+</Button></td>
-                                <td onClick={ () => handleChange(product, orderId, 'decrease') }><Button>-</Button></td>
+                                <td><Button>-</Button></td>
                             </tr>
                     )})
                 }
@@ -57,7 +56,7 @@ class Cart extends Component {
 }
 
 const mapStateToProps = ({ orders, products }) => {
-    let cart = orders.find(order => order.status === 'CART');
+    const cart = findPendingOrder(orders);
     return { cart, products };
 }
 const mapDispatchToProps = ({ createLineItem, updateLineItem, resetOrders });
