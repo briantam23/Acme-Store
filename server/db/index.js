@@ -12,6 +12,7 @@ Order.hasMany(LineItem);
 const syncAndSeed = () => {
     let macBookAir, iPhone8, hershelBackpack, cart, order1, order2, 
         lineItem1, lineItem2, lineItem3, lineItem4, lineItem5;
+
     conn.sync({ force: true })
         .then(() => Promise.all([
             Product.create({ name: 'MacBook Air' }),
@@ -60,5 +61,6 @@ module.exports = {
         Order,
         Product,
         LineItem
-    }
+    },
+    conn
 }

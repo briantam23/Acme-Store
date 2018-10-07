@@ -5,13 +5,13 @@ import { findFinishedOrders, findOrderedCount } from '../util';
 import { resetOrders } from '../store/actions/orders';
 
 
-const AlertBanner = ({ orderedCount }) => (
+const AlertBanner = ({ orderedCount, resetOrders }) => (
     <Fragment>
         <br/>
         <Alert color='success'>{ orderedCount } Items Sold!!</Alert>
         <br/>
-        <Button color='warning' block disabled>Reset</Button>
-        <br/>
+        <Button onClick={ () => resetOrders() }color='warning'>Reset</Button>
+        <br/><br/>
     </Fragment>
 )
 

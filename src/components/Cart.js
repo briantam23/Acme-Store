@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
 import { createLineItem, updateLineItem, deleteLineItem, updateOrder } from '../store/actions/orders';
-import { findCartCount, findPendingOrder } from '../util';
+import { findCartCount, findLineItemById, findPendingOrder } from '../util';
 
 
-const Cart = ({ cart, products, createLineItem, updateLineItem, deleteLineItem, updateOrder, resetOrders }) => (
+const Cart = ({ cart, products, createLineItem, updateLineItem, deleteLineItem, updateOrder }) => (
     <Fragment>
         <h2>Cart</h2>
         <hr/>
@@ -23,8 +23,8 @@ const Cart = ({ cart, products, createLineItem, updateLineItem, deleteLineItem, 
                 let quantity = 0;
                 let inCart = false;
                 let lineItem = null;
-                if(cart.lineItems.find(lineItem => lineItem.productId === product.id)) {
-                    lineItem = cart.lineItems.find(lineItem => lineItem.productId === product.id);
+                if(findLineItemById(cart, product)) {
+                    lineItem = findLineItemById(cart, product);
                     quantity = lineItem.quantity;
                     inCart = true;
                 }

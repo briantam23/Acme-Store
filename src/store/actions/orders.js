@@ -20,7 +20,6 @@ const _createLineItem = lineItem => ({
 }) 
 export const createLineItem = (product, orderId) => {
     let lineItem = { ...product, productId: product.id };
-    console.log(lineItem)
     return(
         dispatch => (
             axios.post(`/api/orders/${orderId}/lineItems`, lineItem)
@@ -76,6 +75,7 @@ const _resetOrders = orders => ({
 export const resetOrders = () => (
     dispatch => (
         axios.put('/api/orders')
+            .then(() => axios.get('/api/orders'))
             .then(res => res.data)
             .then(orders => dispatch(_resetOrders(orders)))
     )

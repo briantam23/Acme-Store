@@ -1,7 +1,7 @@
 import { LOAD_INITIAL_ORDERS, CREATE_LINE_ITEM, UPDATE_LINE_ITEM, DELETE_LINE_ITEM, UPDATE_ORDER, RESET_ORDERS } from '../constants';
 
 
-const orderReducer = (state = [], action) => {
+const ordersReducer = (state = [], action) => {
     let cart = state.find(order => order.status === 'CART');
     switch(action.type) {
         case LOAD_INITIAL_ORDERS:
@@ -20,11 +20,11 @@ const orderReducer = (state = [], action) => {
             return state.map(order => order.status !== 'CART' ? order : cart);
         case UPDATE_ORDER:
             return action.orders;
-        /* case RESET_ORDERS:
-            return action.orders; */
+        case RESET_ORDERS:
+            return action.orders;
         default:
             return state;
     }
 }
 
-export default orderReducer;
+export default ordersReducer;

@@ -30,3 +30,7 @@ export const findOrderedCount = finishedOrders => {
 export const findCartCount = cartOrder => (
     cartOrder.lineItems.reduce((acc, cur) => acc += cur.quantity, 0)
 )
+
+export const findLineItemById = (cart, product) => (
+    cart.lineItems.find(lineItem => lineItem.productId === product.id)
+)

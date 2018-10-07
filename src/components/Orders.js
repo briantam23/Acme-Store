@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem, Button, Badge} from 'reactstrap';
 import { findProductNameById, findFinishedOrders } from '../util';
 
 
-const Orders = ({ orders, products, resetOrders }) => (
+const Orders = ({ orders, products }) => (
     <Fragment>
         <h2>Orders</h2>
         <hr/>
@@ -15,9 +15,10 @@ const Orders = ({ orders, products, resetOrders }) => (
             {
                 order.lineItems.map((lineItem, idx) => (
                     <ListGroupItem key={ lineItem.id}>
-                        <Fragment><Badge color='primary'>{ findProductNameById(products, lineItem.productId) }</Badge>
+                        <h5>
+                            <Badge color='primary'>{ findProductNameById(products, lineItem.productId) }</Badge>
                             <Badge color='success' style={{ float: 'right' }}>Quantity: { lineItem.quantity }</Badge>
-                        </Fragment>
+                        </h5>
                     </ListGroupItem>
                 ))
             }

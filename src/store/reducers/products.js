@@ -1,7 +1,7 @@
 import { LOAD_INITIAL_PRODUCTS } from '../constants';
 
 
-const productReducer = (state = [], action) => {
+const productsReducer = (state = [], action) => {
     switch(action.type) {
         case LOAD_INITIAL_PRODUCTS:
             return action.products;
@@ -11,4 +11,4 @@ const productReducer = (state = [], action) => {
 }
 
 
-export default productReducer;
+export default productsReducer;

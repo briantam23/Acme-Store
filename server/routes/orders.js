@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { Order, LineItem } = require('../db').models;
-const { syncAndSeed } = require('../db');
+const { Order, LineItem, Product } = require('../db').models;
+const { conn } = require('../db');
 
 
 router.get('/', async (req, res, next) => {
@@ -34,18 +34,16 @@ router.post('/:orderId/lineItems', (req, res, next) => {
         .catch(next)
 })
 
-/* router.put('/', (req, res, next) => {
-    console.log(syncAndSeed)
-    const syncAndSeedPromise = () => (
-        new Promise((resolve, reject) => {
-            resolve(syncAndSeed());
-        })
-    )
-    syncAndSeedPromise()
-        .then(() => Order.findAll())
-        .then(orders => res.send(orders))
+router.put('/', (req, res, next) => {
+    conn.sync({ force: true })
+        .then(() => Promise.all([
+            Product.create({ name: 'MacBook Air' }),
+            Product.create({ name: 'iPhone 8' }),
+            Product.create({ name: 'Hershel Backpack' })
+        ]))
+        .then(() => res.send())
         .catch(next)
-}) */
+})
 
 //update order
 router.put('/:id', (req, res, next) => {
