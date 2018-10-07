@@ -11,7 +11,7 @@ const Orders = ({ orders, products }) => (
     {
         orders.map(order => (
             <ListGroup key={ order.id }>
-                <Fragment>{ order.id }</Fragment>
+                <Fragment>Order ID: <br/>{ order.id }</Fragment>
             {
                 order.lineItems.map((lineItem, idx) => (
                     <ListGroupItem key={ lineItem.id}>
