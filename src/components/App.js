@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { loadInitialOrders } from '../store/actions/orders';
 import { loadInitialProducts } from '../store/actions/products';
-import { loadInitialUsers } from '../store/actions/users';
 import ReactLoading from 'react-loading';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import NavBar from './NavBar';
@@ -19,10 +18,9 @@ class App extends Component {
         this.state = { loading: true };
     }
     componentDidMount() {
-        const { loadInitialOrders, loadInitialProducts, loadInitialUsers, auth } = this.props;
+        const { loadInitialOrders, loadInitialProducts, auth } = this.props;
         loadInitialOrders(auth.id)
             .then(() => loadInitialProducts())
-            .then(() => loadInitialUsers())
             .then(() => this.setState({ loading: false }))
     }
     render() {
@@ -36,7 +34,7 @@ class App extends Component {
                     <Fragment>
                         <Route render={ ({ location }) => <NavBar pathname={ location.pathname }/> }/>
                         <Route render={ ({ history }) => <Auth history={ history }/> }/> 
-                        <Route render={ () => <AlertBanner/> }/>
+                        <Route render={ ({ location }) => <AlertBanner pathname={ location.pathname }/> }/>
                         <Route exact path='/' render={ () => <Home/> }/>
                     {
                         auth.id ? (
@@ -54,7 +52,7 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ auth }) => ({ auth });
-const mapDispatchToProps = { loadInitialOrders, loadInitialProducts, loadInitialUsers };
+const mapDispatchToProps = { loadInitialOrders, loadInitialProducts };
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

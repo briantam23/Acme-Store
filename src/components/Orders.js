@@ -31,7 +31,7 @@ const Orders = ({ orders, products, auth }) => (
 
 
 const mapStateToProps = ({ orders, products, auth }) => {
-    orders = findFinishedOrders(orders, auth.id);
+    orders = findFinishedOrders(orders);
     return { orders, products, auth }
 }
 

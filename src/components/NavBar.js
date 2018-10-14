@@ -42,13 +42,9 @@ const mapStateToProps = ({ orders, auth }, { pathname }) => {
     let cartOrder = null;
     let cartCount = 0;
     
-    if(auth.id) {
-        if(findFinishedOrders(orders)) {
-            orderCount = findFinishedOrders(orders).length;
-        }
-        cartOrder = findPendingOrder(orders);
-        cartCount = findCartCount(cartOrder);
-    }
+    orderCount = findFinishedOrders(orders).length;
+    cartOrder = findPendingOrder(orders);
+    cartCount = findCartCount(cartOrder);
 
     return { orderCount, cartCount, pathname, auth };
 }

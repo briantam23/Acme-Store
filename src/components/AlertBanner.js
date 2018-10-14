@@ -5,21 +5,28 @@ import { findFinishedOrders, findOrderedCount } from '../util';
 import { resetOrders } from '../store/actions/orders';
 
 
-const AlertBanner = ({ orderedCount, resetOrders }) => (
+const AlertBanner = ({ orderedCount, resetOrders, pathname, auth }) => (
     <Fragment>
-        <br/>
-        <Alert color='success'>{ orderedCount } Items Sold!!</Alert>
-        <br/>
-        <Button onClick={ () => resetOrders() }color='warning'>Reset</Button>
-        <br/><br/>
+    {
+        pathname !== '/' && auth.id ? (
+            <Fragment>
+                <br/>
+                <Alert color='success'>{ orderedCount } Items Sold!!</Alert>
+                <br/>
+                <Button onClick={ () => resetOrders(auth.name) }color='warning'>Reset</Button>
+                <br/><br/>
+            </Fragment>
+        ) : null
+    }
     </Fragment>
+
 )
 
 
-const mapStateToProps = ({ orders }) => {
+const mapStateToProps = ({ orders, auth }, { pathname }) => {
     const finishedOrders = findFinishedOrders(orders);
     const orderedCount = findOrderedCount(finishedOrders);
-    return { orderedCount };
+    return { orderedCount, pathname, auth };
 }
 const mapDispatchToProps = ({ resetOrders });
 

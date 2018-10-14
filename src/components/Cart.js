@@ -18,7 +18,7 @@ const Cart = ({ cart, products, createLineItem, updateLineItem, deleteLineItem, 
             </tr>
         </thead>
         <tbody>
-        {
+        {   
             products.map(product => {
                 let quantity = 0;
                 let inCart = false;
@@ -37,6 +37,7 @@ const Cart = ({ cart, products, createLineItem, updateLineItem, deleteLineItem, 
                         <td onClick={ () => quantity > 1 ? updateLineItem(lineItem, orderId, quantity, -1) : deleteLineItem(lineItem, orderId) }><Button disabled={ quantity === 0 }>-</Button></td>
                     </tr>
             )})
+           
         }
         </tbody>
         </Table>
