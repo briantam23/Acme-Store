@@ -8,7 +8,7 @@
     "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "build": "npm run webpack -- --watch --mode=development",
-    "start:dev": "npm run build & DATABASE_URL=postgres://localhost/senior-enrichment nodemon server/index.js --ignore dist --ignore src",
+    "start:dev": "npm run build & DATABASE_URL=postgres://localhost/senior-enrichment & JWT_SECRET='foo' nodemon server/index.js --ignore dist --ignore src",
     "test": "mocha ./test/*.test.js --watch --require babel-polyfill --compilers js:babel-register"
   },
   "keywords": [],
@@ -35,6 +35,8 @@
     "classnames": "^2.2.6",
     "css-loader": "^1.0.0",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "jwt-simple": "^0.5.5",
     "pg": "^7.4.3",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",

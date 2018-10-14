@@ -6,12 +6,19 @@ const _loadInitialOrders = orders => ({
     type: LOAD_INITIAL_ORDERS,
     orders
 })
-export const loadInitialOrders = () => (
-    dispatch => (
-        axios.get('/api/orders')
-            .then(res => res.data)
-            .then(orders => dispatch(_loadInitialOrders(orders)))
-    )
+export const loadInitialOrders = id => (
+    dispatch => {
+        if(id) {
+            return axios.get(`/api/users/${id}/orders`)
+                .then(res => res.data)
+                .then(orders => dispatch(_loadInitialOrders(orders)))
+        }
+        else {
+            return axios.get(`/api/orders`)
+                .then(res => res.data)
+                .then(orders => dispatch(_loadInitialOrders(orders)))
+        }
+    }
 )
 
 const _createLineItem = lineItem => ({

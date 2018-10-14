@@ -6,34 +6,51 @@ import { selected, findFinishedOrders, findPendingOrder, findCartCount } from '.
 import classnames from 'classnames';
 
 
-const NavBar = ({ orderCount, cartCount, pathname }) => (
-    <Fragment>
-        <Nav tabs>
-            <NavItem>
-                <NavLink tag={ Link } to='/' className={ classnames({ active: selected('/', pathname) }) }>
-                    Home
-                </NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink tag={ Link } to='/cart' className={ classnames({ active: selected('/cart', pathname, true) }) }>
-                    Cart <Badge>{ cartCount }</Badge>
-                </NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink tag={ Link } to='/orders' className={ classnames({ active: selected('/orders', pathname, true) }) }>
-                    Orders <Badge>{ orderCount }</Badge>
-                </NavLink>
-            </NavItem>
-        </Nav>
-    </Fragment>
-)
+const NavBar = ({ orderCount, cartCount, pathname, auth }) => {
+    return(
+        <Fragment>
+            <Nav tabs>
+                <NavItem>
+                    <NavLink tag={ Link } to='/' className={ classnames({ active: selected('/', pathname) }) }>
+                        Home
+                    </NavLink>
+                </NavItem>
+            {
+                auth.id ? (
+                    <Fragment>
+                        <NavItem>
+                            <NavLink tag={ Link } to='/cart' className={ classnames({ active: selected('/cart', pathname, true) }) }>
+                                Cart <Badge>{ cartCount }</Badge>
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={ Link } to='/orders' className={ classnames({ active: selected('/orders', pathname, true) }) }>
+                                Orders <Badge>{ orderCount }</Badge>
+                            </NavLink>
+                        </NavItem>
+                    </Fragment>
+                ) : null
+            }
+            </Nav>
+        </Fragment>
+    )
+}
 
 
-const mapStateToProps = ({ orders }, { pathname }) => {
-    const orderCount = findFinishedOrders(orders).length;
-    const cartOrder = findPendingOrder(orders);
-    const cartCount = findCartCount(cartOrder);
-    return { orderCount, cartCount, pathname };
+const mapStateToProps = ({ orders, auth }, { pathname }) => {
+    let orderCount = 0;
+    let cartOrder = null;
+    let cartCount = 0;
+    
+    if(auth.id) {
+        if(findFinishedOrders(orders)) {
+            orderCount = findFinishedOrders(orders).length;
+        }
+        cartOrder = findPendingOrder(orders);
+        cartCount = findCartCount(cartOrder);
+    }
+
+    return { orderCount, cartCount, pathname, auth };
 }
 
 

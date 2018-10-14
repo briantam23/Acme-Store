@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Order, LineItem, Product } = require('../db').models;
+const { Order, LineItem, Product, User } = require('../db').models;
 const { conn } = require('../db');
 
 
@@ -34,12 +34,16 @@ router.post('/:orderId/lineItems', (req, res, next) => {
         .catch(next)
 })
 
+//reset orders
 router.put('/', (req, res, next) => {
     conn.sync({ force: true })
         .then(() => Promise.all([
             Product.create({ name: 'MacBook Air' }),
             Product.create({ name: 'iPhone 8' }),
-            Product.create({ name: 'Hershel Backpack' })
+            Product.create({ name: 'Hershel Backpack' }),
+            User.create({ name: 'moe', password: 'm' }),
+            User.create({ name: 'larry', password: 'l' }),
+            User.create({ name: 'curly', password: 'c' })
         ]))
         .then(() => res.send())
         .catch(next)

@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem, Button, Badge} from 'reactstrap';
 import { findProductNameById, findFinishedOrders } from '../util';
 
 
-const Orders = ({ orders, products }) => (
+const Orders = ({ orders, products, auth }) => (
     <Fragment>
         <h2>Orders</h2>
         <hr/>
@@ -30,9 +30,9 @@ const Orders = ({ orders, products }) => (
 )
 
 
-const mapStateToProps = ({ orders, products }) => {
-    orders = findFinishedOrders(orders);
-    return { orders, products }
+const mapStateToProps = ({ orders, products, auth }) => {
+    orders = findFinishedOrders(orders, auth.id);
+    return { orders, products, auth }
 }
 
 
