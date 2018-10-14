@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "start": "node ./server/index.js",
+    "start": "node ./server/index.js & JWT_SECRET='foo'",
     "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "build": "npm run webpack -- --watch --mode=development",
