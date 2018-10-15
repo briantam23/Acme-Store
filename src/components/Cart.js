@@ -5,7 +5,7 @@ import { createLineItem, updateLineItem, deleteLineItem, updateOrder } from '../
 import { findCartCount, findLineItemById, findPendingOrder } from '../util';
 
 
-const Cart = ({ cart, products, createLineItem, updateLineItem, deleteLineItem, updateOrder }) => (
+const Cart = ({ cart, products, createLineItem, updateLineItem, deleteLineItem, updateOrder, history }) => (
     <Fragment>
         <h2>Cart</h2>
         <hr/>
@@ -41,14 +41,14 @@ const Cart = ({ cart, products, createLineItem, updateLineItem, deleteLineItem, 
         }
         </tbody>
         </Table>
-        <Button onClick={ () => updateOrder(cart) } disabled={ findCartCount(cart) === 0 } color='primary' block>Create Order</Button>
+        <Button onClick={ () => updateOrder(cart, history) } disabled={ findCartCount(cart) === 0 } color='primary' block>Create Order</Button>
     </Fragment>
 )
 
 
-const mapStateToProps = ({ orders, products }) => {
+const mapStateToProps = ({ orders, products }, { history }) => {
     const cart = findPendingOrder(orders);
-    return { cart, products };
+    return { cart, products, history };
 }
 const mapDispatchToProps = ({ createLineItem, updateLineItem, deleteLineItem, updateOrder });
 

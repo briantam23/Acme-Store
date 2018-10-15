@@ -69,13 +69,16 @@ const _updateOrder = (orders, userId) => ({
     orders,
     userId
 })
-export const updateOrder = cart => {
+export const updateOrder = (cart, history) => {
     const newOrder = { ...cart, status: 'ORDER' };
     return dispatch => (
         axios.put(`/api/users/${cart.userId}/orders/${cart.id}`, newOrder)
             .then(() => axios.get(`/api/users/${cart.userId}/orders`))
             .then(res => res.data)
-            .then(newOrders => dispatch(_updateOrder(newOrders, cart.userId)))
+            .then(newOrders => {
+                history.push('/orders');
+                dispatch(_updateOrder(newOrders, cart.userId));
+            })
     )
 }
 

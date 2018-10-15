@@ -39,7 +39,7 @@ class App extends Component {
                     {
                         auth.id ? (
                             <Fragment>        
-                                <Route path='/cart' render={ () => <Cart/> }/>
+                                <Route path='/cart' render={ ({ history }) => <Cart history={ history }/> }/>
                                 <Route path='/orders' render={ () => <Orders/> }/>
                             </Fragment>
                         ) : null
