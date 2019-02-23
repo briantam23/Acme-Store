@@ -17,8 +17,8 @@ router.post('/', (req, res, next) => {
             if(!user) {
                 return next({ status: 401 });
             }
-        const token = jwt.encode({ id: user.id }, process.env.JWT_SECRET);
-        res.send({ token });
+            const token = jwt.encode({ id: user.id }, process.env.JWT_SECRET);
+            res.send({ token });
         })
         .catch(next)
 })
