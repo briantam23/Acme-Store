@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 
 //get user by ID
 router.get('/:userId', (req, res, next) => {
-    User.findById(req.params.userId)
+    User.findByPk(req.params.userId)
         .then(user => res.send(user))
         .catch(next)
 })
@@ -29,7 +29,7 @@ router.get('/:userId/orders', async (req, res, next) => {
         })
         if(!cart) {
             cart = await Order.create({ where: { status: 'CART' } });
-            user = await User.findById(req.params.userId);
+            user = await User.findByPk(req.params.userId);
             await cart.setUser(user);
         }
         const orders = await Order.findAll({
@@ -61,7 +61,7 @@ router.post('/:userId/orders/:orderId/lineItems', (req, res, next) => {
 
 //update order
 router.put('/:userId/orders/:orderId', (req, res, next) => {
-    Order.findById(req.params.orderId)
+    Order.findByPk(req.params.orderId)
         .then(order => order.update({ ...req.body, userId: req.params.userId }))
         .then(order => res.send(order))
         .catch(next)
@@ -69,7 +69,7 @@ router.put('/:userId/orders/:orderId', (req, res, next) => {
 
 //update line item
 router.put('/:userId/orders/:orderId/lineItems/:lineItemId', (req, res, next) => {
-    LineItem.findById(req.params.lineItemId)
+    LineItem.findByPk(req.params.lineItemId)
         .then(lineItem => lineItem.update(req.body))
         .then(lineItem=> res.send(lineItem))
         .catch(next)
