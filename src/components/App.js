@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { loadInitialOrders } from '../store/actions/orders';
 import { loadInitialProducts } from '../store/actions/products';
-import ReactLoading from 'react-loading';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import NavBar from './NavBar';
 import Home from './Home';
@@ -26,7 +25,8 @@ class App extends Component {
     render() {
         const { loading } = this.state;
         const { auth } = this.props;
-        if(loading) return <ReactLoading type='spokes' color='black'/>
+        
+        if(loading) return null;
         return(
             <Fragment>
                 <h1>Acme Store</h1>

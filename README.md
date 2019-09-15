@@ -1,4 +1,3 @@
-[![Known Vulnerabilities](https://app.snyk.io/test/github/briantam23/Acme-Store/badge.svg?targetFile=package.json)](https://app.snyk.io/test/github/briantam23/Acme-Store?targetFile=package.json)
 [![Dependency Status](https://david-dm.org/briantam23/Acme-Store.svg)](https://david-dm.org/briantam23/Acme-Store)
 [![devDependencies Status](https://david-dm.org/briantam23/Acme-Store/dev-status.svg)](https://david-dm.org/briantam23/Acme-Store?type=dev)
 [![Code Climate](https://codeclimate.com/github/briantam23/Acme-Store/badges/gpa.svg)](https://codeclimate.com/github/briantam23/Acme-Store/)
